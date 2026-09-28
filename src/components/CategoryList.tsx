@@ -27,10 +27,12 @@ function CategoryList({
       image: "https://images.unsplash.com/photo-1628088062854-d1870b4553da",
     },
     { 
-        name: "Meats", image: "https://images.unsplash.com/photo-1723893905879-0e309c2a8e06", 
+        name: "Meats", 
+        image: "https://images.unsplash.com/photo-1723893905879-0e309c2a8e06", 
     }, 
     { 
-        name: "Fish & Seafood", image: "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62", 
+        name: "Fish & Seafood", 
+        image: "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62", 
     },
     {
       name: "Snacks",
@@ -47,6 +49,22 @@ function CategoryList({
       <h2 className="mb-5 text-2xl font-bold">
         Shop by Category
       </h2>
+
+      <button
+        onClick={() => onCategorySelect("All")}
+        className={`
+        mb-5
+        rounded-lg
+        border
+        px-5
+        py-2
+        font-semibold
+        transition
+        hover:shadow-md
+        ${selectedCategory === "All" ? "bg-black text-white" : "bg-white"}
+        `}>
+        All Products
+      </button>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {categories.map((category) => (

@@ -56,4 +56,20 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba",
     inStock: false,
   },
+  {
+    id: 7,
+    name: "Halal Beef",
+    price: 8.49,
+    category: "Meats",
+    image: "https://images.unsplash.com/photo-1723893905879-0e309c2a8e06",
+    inStock: false,
+  },
+  {
+    id: 8,
+    name: "Koral Fish (Barramundi)",
+    price: 24.99,
+    category: "Fish & Seafood",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa53DjWhCoi1n8hFMtxpj5TNc8nvyQNMn7R29V9ovPVuCK-dvNPRy_aX4&s=10",
+    inStock: false,
+  },
 ]
