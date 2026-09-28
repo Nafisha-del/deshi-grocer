@@ -2,10 +2,11 @@ import { products } from "../data/products"
 import ProductCard from "./ProductCard"
 
 type ProductListProps = {
-  selectedCategory: string
+    selectedCategory: string
+    onAddToCart: (productId: number) => void
 }
 
-function ProductList({ selectedCategory }: ProductListProps) {
+function ProductList({ selectedCategory, onAddToCart, }: ProductListProps) {
     const filteredProducts =
     selectedCategory === "All"
       ? products
@@ -24,6 +25,7 @@ function ProductList({ selectedCategory }: ProductListProps) {
             <ProductCard
                 key={product.id}
                 product={product}
+                onAddToCart={() => onAddToCart(product.id)}
             />
             ))}
         </div>

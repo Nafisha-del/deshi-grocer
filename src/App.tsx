@@ -6,6 +6,10 @@ import ProductList from "./components/ProductList"
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
+  const handleAddToCart = (productId: number) => {
+    console.log("Added product: ", productId)
+  }
+
   return (
     <>
     <Header 
@@ -25,7 +29,10 @@ function App() {
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
       />
-      <ProductList selectedCategory={selectedCategory} />
+      <ProductList 
+        selectedCategory={selectedCategory} 
+        onAddToCart={handleAddToCart}
+      />
     </main>
     </>
   )
