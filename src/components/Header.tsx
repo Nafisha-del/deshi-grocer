@@ -1,21 +1,25 @@
 type HeaderProps = {
     storeName: string
+    tagline: string
+    cartCount: number
 }
 
-function Header({ storeName }: HeaderProps){
-    return(
-        <header className="flex items-center justify-between border-b px-10 py-5">
-            <h1 className="text-2xl font-bold">
-                {storeName}
-            </h1>
-
-            <nav className="flex gap-6">
-                <a href="#" className="text-gray-700 hover:text-black">Home</a>
-                <a href="#" className="text-gray-700 hover:text-black">Products</a>
-                <a href="#" className="text-gray-700 hover:text-black">About</a>
-            </nav>
-        </header>
-    )
+function Header({ storeName, tagline, cartCount }: HeaderProps){
+    return (
+    <header className="border-b bg-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
+            <div>
+                <h1 className="text-2xl font-bold">{storeName}</h1>
+                
+                <p className="text-sm text-gray-500">{tagline}</p>
+            </div>
+            
+            <div className="font-semibold">
+                🛒 Cart ({cartCount})
+            </div>
+        </div>
+    </header>
+  )
 }
 
 export default Header
