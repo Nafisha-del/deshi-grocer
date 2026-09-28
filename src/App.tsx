@@ -1,12 +1,15 @@
 import './App.css'
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
+import ProductList from "./components/ProductList"
 
 function App() {
 
   return (
     <>
-    <Header storeName="Deshi Grocer"/>
+    <Header 
+      storeName="Deshi Grocer"
+    />
 
     <main className="p-8">
       <h2 className="text-3xl font-bold">
@@ -18,6 +21,7 @@ function App() {
       </p>
 
       <CategoryList />
+      <ProductList />
     </main>
     </>
   )
