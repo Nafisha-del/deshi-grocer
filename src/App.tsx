@@ -1,9 +1,10 @@
-import './App.css'
+import { useState } from "react"
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState("All")
 
   return (
     <>
@@ -20,8 +21,11 @@ function App() {
         Your online grocery store.
       </p>
 
-      <CategoryList />
-      <ProductList />
+      <CategoryList
+        selectedCategory={selectedCategory}
+        onCategorySelect={setSelectedCategory}
+      />
+      <ProductList selectedCategory={selectedCategory} />
     </main>
     </>
   )
