@@ -4,6 +4,7 @@ import type { CartItem } from "./data/products"
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
+import Cart from "./components/Cart"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -67,6 +68,7 @@ function App() {
         selectedCategory={selectedCategory} 
         onAddToCart={handleAddToCart}
       />
+      <Cart items={cart} />
     </main>
     </>
   )
