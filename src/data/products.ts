@@ -7,6 +7,11 @@ export type Product = {
     inStock: boolean
 }
 
+export type CartItem = {
+  product: Product
+  quantity: number
+}
+
 export const products: Product[] = [
   {
     id: 1,
