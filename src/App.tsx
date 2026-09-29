@@ -41,6 +41,14 @@ function App() {
     })
   }
 
+  const handleRemoveFromCart = (productId: number) => {
+    setCart((currentCart) =>
+      currentCart.filter(
+        (item) => item.product.id !== productId
+      )
+    )
+  }
+
   return (
     <>
     <Header 
@@ -68,7 +76,10 @@ function App() {
         selectedCategory={selectedCategory} 
         onAddToCart={handleAddToCart}
       />
-      <Cart items={cart} />
+      <Cart 
+        items={cart} 
+        onRemoveFromCart={handleRemoveFromCart}
+      />
     </main>
     </>
   )

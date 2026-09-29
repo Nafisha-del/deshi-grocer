@@ -2,9 +2,10 @@ import type { CartItem } from "../data/products";
 
 type CartProps = {
     items: CartItem[]
+    onRemoveFromCart: (productId: number) => void
 }
 
-function Cart({ items }: CartProps) {
+function Cart({ items, onRemoveFromCart, }: CartProps) {
     const total = items.reduce(
         (sum, item) => sum + item.product.price * item.quantity, 0
     )
@@ -27,9 +28,16 @@ function Cart({ items }: CartProps) {
                                 </p>
                             </div>
 
-                            <p className="font-semibold">
-                                ${(item.product.price * item.quantity).toFixed(2)}
-                            </p>
+                            <div className="flex items-center gap-4">
+                                <p className="font-semibold">
+                                    ${(item.product.price * item.quantity).toFixed(2)}
+                                </p>
+                                <button
+                                    onClick={() => onRemoveFromCart(item.product.id)}
+                                    className="rounded-lg border px-3 py-1 text-sm font-medium hover:bg-gray-100">
+                                    Remove
+                                </button>
+                            </div>
                         </div>
                     ))}
                     </div>
