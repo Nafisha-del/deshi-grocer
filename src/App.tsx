@@ -6,11 +6,13 @@ import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
 import Cart from "./components/Cart"
 import CheckoutForm from "./components/CheckoutForm"
+import OrderConfirmation from "./components/OrderConfirmation"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
 
   const handleAddToCart = (productId: number) => {
     const product = products.find(
@@ -79,6 +81,11 @@ function App() {
     setIsCheckoutOpen(true)
   }
 
+  const handleOrderSubmit = () => {
+    setIsCheckoutOpen(false)
+    setIsOrderConfirmed(true)
+  }
+
   return (
     <>
     <Header 
@@ -115,11 +122,17 @@ function App() {
       />
       {isCheckoutOpen && (
         <CheckoutForm
-          onSubmit={() => {
-            console.log("Order submitted")
-          }}
+          onSubmit={handleOrderSubmit}
         />
       )}
+      {isOrderConfirmed && (
+        <OrderConfirmation
+          onContinueShopping={() => {
+            setIsOrderConfirmed(false)
+            setCart([])
+          }}
+        />
+)}
     </main>
     </>
   )
