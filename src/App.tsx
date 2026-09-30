@@ -49,6 +49,30 @@ function App() {
     )
   }
 
+  const handleIncreaseQuantity = (productId: number) => {
+    setCart((currentCart) =>
+      currentCart.map((item) =>
+        item.product.id === productId
+        ? {
+            ...item,
+            quantity: item.quantity + 1,
+        } : item
+      )
+    )
+  }
+
+  const handleDecreaseQuantity = (productId: number) => {
+    setCart((currentCart) =>
+      currentCart.map((item) =>
+        item.product.id === productId
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+            } : item
+      ).filter((item) => item.quantity > 0)
+    )
+  }
+
   return (
     <>
     <Header 
@@ -79,6 +103,8 @@ function App() {
       <Cart 
         items={cart} 
         onRemoveFromCart={handleRemoveFromCart}
+        onIncreaseQuantity={handleIncreaseQuantity}
+        onDecreaseQuantity={handleDecreaseQuantity}
       />
     </main>
     </>

@@ -3,9 +3,11 @@ import type { CartItem } from "../data/products";
 type CartProps = {
     items: CartItem[]
     onRemoveFromCart: (productId: number) => void
+    onIncreaseQuantity: (productId: number) => void
+    onDecreaseQuantity: (productId: number) => void
 }
 
-function Cart({ items, onRemoveFromCart, }: CartProps) {
+function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity }: CartProps) {
     const total = items.reduce(
         (sum, item) => sum + item.product.price * item.quantity, 0
     )
@@ -29,6 +31,26 @@ function Cart({ items, onRemoveFromCart, }: CartProps) {
                             </div>
 
                             <div className="flex items-center gap-4">
+                                <div className="flex items-center rounded-lg border">
+                                    <button
+                                        onClick={() => onDecreaseQuantity(item.product.id)}
+                                        className="px-3 py-1 text-lg hover:bg-gray-100"
+                                    >
+                                        -
+                                    </button>
+
+                                    <span className="px-3 font-semibold">
+                                        {item.quantity}
+                                    </span>
+                                    
+                                    <button
+                                        onClick={() => onIncreaseQuantity(item.product.id)}
+                                        className="px-3 py-1 text-lg hover:bg-gray-100"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+
                                 <p className="font-semibold">
                                     ${(item.product.price * item.quantity).toFixed(2)}
                                 </p>
