@@ -5,10 +5,12 @@ import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
 import Cart from "./components/Cart"
+import CheckoutForm from "./components/CheckoutForm"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [cart, setCart] = useState<CartItem[]>([])
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
   const handleAddToCart = (productId: number) => {
     const product = products.find(
@@ -74,7 +76,7 @@ function App() {
   }
 
   const handleCheckout = () => {
-    console.log("Proceeding to checkout")
+    setIsCheckoutOpen(true)
   }
 
   return (
@@ -111,6 +113,13 @@ function App() {
         onDecreaseQuantity={handleDecreaseQuantity}
         onCheckout={handleCheckout}
       />
+      {isCheckoutOpen && (
+        <CheckoutForm
+          onSubmit={() => {
+            console.log("Order submitted")
+          }}
+        />
+      )}
     </main>
     </>
   )
