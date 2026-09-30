@@ -1,21 +1,38 @@
 import { useState } from "react";
 
+type CheckoutFormData = {
+    name: string,
+    email: string,
+    phone: string,
+    address: string,
+    instructions: string
+}
+
 type CheckoutProps = {
     onSubmit: () => void
 }
 
 function CheckoutForm({ onSubmit }:CheckoutProps) {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [address, setAddress] = useState("")
-    const [instructions, setInstructions] = useState("")
+    const [formData, setFormData] = useState<CheckoutFormData>({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        instructions: "",
+    })
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
-        console.log({name, email, phone, address, instructions})
+        console.log(formData)
         onSubmit()
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target
+        setFormData((currentData) => ({
+            ...currentData,
+            [name]: value,
+        }))
     }
 
     return (
@@ -24,44 +41,40 @@ function CheckoutForm({ onSubmit }:CheckoutProps) {
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                     <label htmlFor="name" className="mb-2 block font-medium">Full Name</label>
-                    <input id="name" type="text" value={name} 
-                        onChange={(event) => setName(event.target.value)}
-                        required
+                    <input id="name" name="name" type="text" value={formData.name}
+                        onChange={handleChange} required
                         className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2"
                         placeholder="Enter your full name" />
                 </div>
 
                 <div>
                     <label htmlFor="email" className="mb-2 block font-medium">Email</label>
-                    <input id="email" type="email" value={email} 
-                        onChange={(event) => setEmail(event.target.value)}
-                        required
+                    <input id="email" name="email" type="email" value={formData.email} 
+                        onChange={handleChange} required
                         className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2"
                         placeholder="you@example.com" />
                 </div>
 
                 <div>
                     <label htmlFor="phone" className="mb-2 block font-medium">Phone Number</label>
-                    <input id="phone" type="tel" value={phone}
-                        onChange={(event) => setPhone(event.target.value)}
-                        required
+                    <input id="phone" name="phone" type="tel" value={formData.phone}
+                        onChange={handleChange} required
                         className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2"
                         placeholder="Enter your phone number" />
                 </div>
                 
                 <div>
                     <label htmlFor="address" className="mb-2 block font-medium">Delivery Address</label>
-                    <textarea id="address" value={address} 
-                        onChange={(event) => setAddress(event.target.value)}
-                        required rows={3}
+                    <textarea id="address" name="address" value={formData.address} 
+                        onChange={handleChange} required rows={3}
                         className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2"
                         placeholder="Enter your delivery address"/>
                 </div>
                 
                 <div>
                     <label htmlFor="instructions" className="mb-2 block font-medium">Delivery Instructions</label>
-                    <textarea id="instructions" value={instructions}
-                        onChange={(event) =>setInstructions(event.target.value)} rows={3}
+                    <textarea id="instructions" name="instructions" value={formData.instructions}
+                        onChange={handleChange} rows={3}
                         className="w-full rounded-lg border px-4 py-2 outline-none focus:ring-2"
                         placeholder="Optional delivery instructions"/>
                 </div>
