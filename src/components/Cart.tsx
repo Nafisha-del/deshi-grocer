@@ -8,9 +8,11 @@ type CartProps = {
 }
 
 function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity }: CartProps) {
-    const total = items.reduce(
+    const subtotal = items.reduce(
         (sum, item) => sum + item.product.price * item.quantity, 0
     )
+    const deliveryFee = subtotal > 0 ? 4.99:0
+    const total = subtotal + deliveryFee
 
     return (
         <section className="mt-12 rounded-lg border bg-white p-6 shadow-sm">
@@ -64,9 +66,24 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity 
                     ))}
                     </div>
                     
-                    <div className="mt-6 flex justify-between text-lg font-bold">
-                        <span>Total</span>
-                        <span>${total.toFixed(2)}</span>
+                    <div className="mt-6 space-y-3 border-t pt-4">
+                        <div className="flex justify-between">
+                            <span className="text-gray-600">
+
+                                Subtotal
+                            </span>
+                            <span>${total.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <div className="flex justify-between">
+                                <span className="text-gray-600">Delivery</span>
+                                <span>${deliveryFee.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div className="flex justify-between border-t pt-3 text-xl font-bold">
+                            <span>Total</span>
+                            <span>${total.toFixed(2)}</span>
+                        </div>
                     </div>
                 </>
             )}
