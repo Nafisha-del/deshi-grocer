@@ -73,6 +73,10 @@ function App() {
     )
   }
 
+  const handleCheckout = () => {
+    console.log("Proceeding to checkout")
+  }
+
   return (
     <>
     <Header 
@@ -105,6 +109,7 @@ function App() {
         onRemoveFromCart={handleRemoveFromCart}
         onIncreaseQuantity={handleIncreaseQuantity}
         onDecreaseQuantity={handleDecreaseQuantity}
+        onCheckout={handleCheckout}
       />
     </main>
     </>
