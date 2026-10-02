@@ -28,15 +28,15 @@ function ProductCard({ product, onAddToCart }: ProductCardProps){
             </p>
 
             <p className="mt-3 text-sm">
-            {product.inStock ? "✓ In Stock" : "✗ Out of Stock"}
+            {product.stock ? "✓ In Stock" : "✗ Out of Stock"}
             </p>
 
             <button
             onClick={() => onAddToCart(product)}
-            disabled={!product.inStock}
+            disabled={!product.stock}
             className="mt-4 w-full rounded-lg bg-black px-4 py-2 font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300"
             >
-            {product.inStock ? "Add to Cart" : "Out of Stock"}
+            {product.stock ? "Add to Cart" : "Out of Stock"}
             </button>
         </div>
         </article>

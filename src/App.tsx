@@ -1,6 +1,7 @@
 import { use, useState } from "react"
 import { products } from "./data/products"
 import type { CartItem } from "./data/products"
+import type { Product } from "./data/products"
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
@@ -17,26 +18,27 @@ function App() {
   const [sortOption, setSortOption] = useState("featured")
 
   // Add to products to cart state
-  const handleAddToCart = (productId: number) => {
-    const product = products.find(
-      (product) => product.id === productId
-    )
-    
-    if (!product) { return }
-    
+  const handleAddToCart = (product: Product) => {
     setCart((currentCart) => {
       const existingItem = currentCart.find(
-        (item) => item.product.id === productId
+        (item) => item.product.id === product.id
       )
       
       if (existingItem) {
+        if (existingItem.quantity >= product.stock) {
+          return currentCart
+        }
+        
         return currentCart.map((item) =>
-          item.product.id === productId ? {
-            ...item,
-            quantity: item.quantity + 1,
-          } : item
+          item.product.id === product.id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            } : item
         )
       }
+      
+      if (product.stock <= 0) { return currentCart }
       
       return [
         ...currentCart,
@@ -47,6 +49,36 @@ function App() {
       ]
     })
   }
+  // const handleAddToCart = (productId: number) => {
+  //   const product = products.find(
+  //     (product) => product.id === productId
+  //   )
+    
+  //   if (!product) { return }
+    
+  //   setCart((currentCart) => {
+  //     const existingItem = currentCart.find(
+  //       (item) => item.product.id === productId
+  //     )
+      
+  //     if (existingItem) {
+  //       return currentCart.map((item) =>
+  //         item.product.id === productId ? {
+  //           ...item,
+  //           quantity: item.quantity + 1,
+  //         } : item
+  //       )
+  //     }
+      
+  //     return [
+  //       ...currentCart,
+  //       {
+  //         product,
+  //         quantity: 1,
+  //       },
+  //     ]
+  //   })
+  // }
 
   // Remove items from cart
   const handleRemoveFromCart = (productId: number) => {
@@ -60,15 +92,28 @@ function App() {
   // Increase amount of 1 product (+)
   const handleIncreaseQuantity = (productId: number) => {
     setCart((currentCart) =>
-      currentCart.map((item) =>
-        item.product.id === productId
-        ? {
-            ...item,
-            quantity: item.quantity + 1,
-        } : item
-      )
+      currentCart.map((item) => {
+        if (item.product.id !== productId) { return item }
+        if (item.quantity >= item.product.stock) { return item }
+        
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        }
+      })
     )
   }
+  // const handleIncreaseQuantity = (productId: number) => {
+  //   setCart((currentCart) =>
+  //     currentCart.map((item) =>
+  //       item.product.id === productId
+  //       ? {
+  //           ...item,
+  //           quantity: item.quantity + 1,
+  //       } : item
+  //     )
+  //   )
+  // }
 
   // Decrease amount of 1 product (-)
   const handleDecreaseQuantity = (productId: number) => {

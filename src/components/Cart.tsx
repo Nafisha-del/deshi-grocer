@@ -48,7 +48,8 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
                                     
                                     <button
                                         onClick={() => onIncreaseQuantity(item.product.id)}
-                                        className="px-3 py-1 text-lg hover:bg-gray-100"
+                                        disabled={item.quantity >= item.product.stock}
+                                        className="rounded border px-2 py-1 disabled:cursor-not-allowed disabled:opacity-40"
                                     >
                                         +
                                     </button>

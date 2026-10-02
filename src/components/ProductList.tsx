@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard"
 type ProductListProps = {
     // selectedCategory: string
     products: Product[]
-    onAddToCart: (productId: number) => void
+    onAddToCart: (product: Product) => void
 }
 
 function ProductList({ products, onAddToCart, }: ProductListProps) {
@@ -52,7 +52,7 @@ function ProductList({ products, onAddToCart, }: ProductListProps) {
                         <div className="mt-4 flex items-center justify-between">
                             <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
                             <button
-                            onClick={() => onAddToCart(product.id)}
+                            onClick={() => onAddToCart(product)}
                             disabled={product.stock === 0}
                             className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300">
                                 {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
