@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { use, useState } from "react"
 import { products } from "./data/products"
 import type { CartItem } from "./data/products"
 import Header from './components/Header'
@@ -13,6 +13,7 @@ function App() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
 
   const handleAddToCart = (productId: number) => {
     const product = products.find(
@@ -86,6 +87,12 @@ function App() {
     setIsOrderConfirmed(true)
   }
 
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
   return (
     <>
     <Header 
@@ -104,13 +111,28 @@ function App() {
       <p className="mt-2 text-gray-600">
         Your online grocery store.
       </p>
+      
+      <div className="mb-8">
+        <label
+        htmlFor="product-search"
+        className="mb-2 block text-sm font-medium">
+          Search Products
+        </label>
+        <input
+          id="product-search"
+          type="search"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          placeholder="Search for rice, milk, apples..."
+          className="w-full rounded-lg border px-4 py-3 outline-none focus:ring-2"/>
+      </div>
 
       <CategoryList
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
       />
       <ProductList 
-        selectedCategory={selectedCategory} 
+        products={filteredProducts} 
         onAddToCart={handleAddToCart}
       />
       <Cart 
