@@ -49,36 +49,6 @@ function App() {
       ]
     })
   }
-  // const handleAddToCart = (productId: number) => {
-  //   const product = products.find(
-  //     (product) => product.id === productId
-  //   )
-    
-  //   if (!product) { return }
-    
-  //   setCart((currentCart) => {
-  //     const existingItem = currentCart.find(
-  //       (item) => item.product.id === productId
-  //     )
-      
-  //     if (existingItem) {
-  //       return currentCart.map((item) =>
-  //         item.product.id === productId ? {
-  //           ...item,
-  //           quantity: item.quantity + 1,
-  //         } : item
-  //       )
-  //     }
-      
-  //     return [
-  //       ...currentCart,
-  //       {
-  //         product,
-  //         quantity: 1,
-  //       },
-  //     ]
-  //   })
-  // }
 
   // Remove items from cart
   const handleRemoveFromCart = (productId: number) => {
@@ -103,18 +73,7 @@ function App() {
       })
     )
   }
-  // const handleIncreaseQuantity = (productId: number) => {
-  //   setCart((currentCart) =>
-  //     currentCart.map((item) =>
-  //       item.product.id === productId
-  //       ? {
-  //           ...item,
-  //           quantity: item.quantity + 1,
-  //       } : item
-  //     )
-  //   )
-  // }
-
+  
   // Decrease amount of 1 product (-)
   const handleDecreaseQuantity = (productId: number) => {
     setCart((currentCart) =>
@@ -164,6 +123,11 @@ function App() {
       return 0
     }
   )
+
+  // Clearing Cart
+  const handleClearCart = () =>{
+    setCart([])
+  }
 
   return (
     <>
@@ -226,6 +190,7 @@ function App() {
         onIncreaseQuantity={handleIncreaseQuantity}
         onDecreaseQuantity={handleDecreaseQuantity}
         onCheckout={handleCheckout}
+        onClearCart={handleClearCart}
       />
       {isCheckoutOpen && (
         <CheckoutForm

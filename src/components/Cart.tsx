@@ -6,9 +6,10 @@ type CartProps = {
     onIncreaseQuantity: (productId: number) => void
     onDecreaseQuantity: (productId: number) => void
     onCheckout: () => void
+    onClearCart: () => void
 }
 
-function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity, onCheckout }: CartProps) {
+function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity, onCheckout, onClearCart }: CartProps) {
     const subtotal = items.reduce(
         (sum, item) => sum + item.product.price * item.quantity, 0
     )
@@ -86,12 +87,16 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
                             <span>Total</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
-                        <button
-                            onClick={onCheckout}
-                            className="mt-6 w-full rounded-lg bg-black px-4 py-3 font-semibold text-white transition hover:bg-gray-800"
-                        >
-                            Proceed to Checkout
-                        </button>
+                        <div className="mt-4 flex gap-3">
+                            <button onClick={onClearCart}
+                                className="flex-1 rounded-lg border px-4 py-3 font-semibold transition hover:bg-gray-100">
+                                Clear Cart
+                            </button>
+                            <button  onClick={onCheckout}
+                                className="flex-1 rounded-lg bg-black px-4 py-3 font-semibold text-white transition hover:bg-gray-800">
+                                Proceed to Checkout
+                            </button>
+                        </div>
                     </div>
                 </>
             )}
