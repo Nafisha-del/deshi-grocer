@@ -44,13 +44,18 @@ function ProductList({ products, onAddToCart, }: ProductListProps) {
                     <div className="p-4">
                         <h3 className="text-lg font-semibold">{product.name}</h3>
                         <p className="mt-1 text-sm text-gray-500">{product.category}</p>
+
+                        <p className="mt-2 text-sm text-gray-500">
+                            {product.stock > 0 ? `${product.stock} available` : "Out of stock"}
+                        </p>
                         
                         <div className="mt-4 flex items-center justify-between">
                             <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
                             <button
                             onClick={() => onAddToCart(product.id)}
-                            className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800">
-                                Add to Cart
+                            disabled={product.stock === 0}
+                            className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300">
+                                {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                             </button>
                         </div>
                     </div>
