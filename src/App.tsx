@@ -14,7 +14,9 @@ function App() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [sortOption, setSortOption] = useState("featured")
 
+  // Add to products to cart state
   const handleAddToCart = (productId: number) => {
     const product = products.find(
       (product) => product.id === productId
@@ -46,6 +48,7 @@ function App() {
     })
   }
 
+  // Remove items from cart
   const handleRemoveFromCart = (productId: number) => {
     setCart((currentCart) =>
       currentCart.filter(
@@ -54,6 +57,7 @@ function App() {
     )
   }
 
+  // Increase amount of 1 product (+)
   const handleIncreaseQuantity = (productId: number) => {
     setCart((currentCart) =>
       currentCart.map((item) =>
@@ -66,6 +70,7 @@ function App() {
     )
   }
 
+  // Decrease amount of 1 product (-)
   const handleDecreaseQuantity = (productId: number) => {
     setCart((currentCart) =>
       currentCart.map((item) =>
@@ -78,20 +83,42 @@ function App() {
     )
   }
 
+  // Check out logic
   const handleCheckout = () => {
     setIsCheckoutOpen(true)
   }
 
+  // Order submit logic
   const handleOrderSubmit = () => {
     setIsCheckoutOpen(false)
     setIsOrderConfirmed(true)
   }
 
+  // Items search 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch
   })
+
+  // Sorting items
+  const sortedProducts = [...filteredProducts].sort(
+    (a, b) => {
+      if (sortOption === 'price-low') {
+        return a.price - b.price
+      }
+      if (sortOption === 'price-high') {
+        return b.price - a.price
+      }
+      if (sortOption === 'return-az'){
+        return a.name.localeCompare(b.name)
+      }
+      if (sortOption === 'return-za'){
+        return b.name.localeCompare(a.name)
+      }
+      return 0
+    }
+  )
 
   return (
     <>
@@ -127,12 +154,25 @@ function App() {
           className="w-full rounded-lg border px-4 py-3 outline-none focus:ring-2"/>
       </div>
 
+      <div className="mb-8 flex items-center gap-3">
+        <label htmlFor="sort-products" className="font-medium">Sort by:</label>
+        <select id="sort-products" value={sortOption}
+          onChange={(event) => setSortOption(event.target.value)}
+          className="rounded-lg border px-4 py-2 outline-none focus:ring-2">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-az">Name: A → Z</option>
+            <option value="name-za">Name: Z → A</option>
+        </select>
+      </div>
+
       <CategoryList
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
       />
       <ProductList 
-        products={filteredProducts} 
+        products={sortedProducts} 
         onAddToCart={handleAddToCart}
       />
       <Cart 

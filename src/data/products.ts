@@ -77,4 +77,12 @@ export const products: Product[] = [
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa53DjWhCoi1n8hFMtxpj5TNc8nvyQNMn7R29V9ovPVuCK-dvNPRy_aX4&s=10",
     inStock: false,
   },
+  {
+    id: 9,
+    name: "Loitta Fish (Lizard Fish)",
+    price: 10.49,
+    category: "Fish & Seafood",
+    image: "https://sunderban.nl/cdn/shop/files/df54eeba-7c89-4911-90bc-31e9d03bdeec_1c93f63a-31f9-443a-bfa8-5bd952ec318d.jpg?v=1775644928",
+    inStock: false,
+  },
 ]
