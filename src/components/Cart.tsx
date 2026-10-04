@@ -16,9 +16,19 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
     const deliveryFee = subtotal > 0 ? 4.99:0
     const total = subtotal + deliveryFee
 
+    const totalItems = items.reduce(
+        (total, item) => total + item.quantity, 0
+    )
+
     return (
         <section id="cart" className="mt-12 rounded-lg border bg-white p-6 shadow-sm">
             <h2 className="mb-5 text-2xl font-bold">Your Cart</h2>
+            {items.length > 0 && (
+                <span className="text-sm text-gray-500">
+                    {totalItems}{" "}
+                    {totalItems === 1 ? 'item':'items'}
+                </span>
+            )}
 
             {items.length === 0 ? (
                 <p className="text-gray-500">Your cart is empty.</p>
@@ -69,21 +79,19 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
                     ))}
                     </div>
                     
-                    <div className="mt-6 space-y-3 border-t pt-4">
-                        <div className="flex justify-between">
-                            <span className="text-gray-600">
-
-                                Subtotal
-                            </span>
+                    <div className="mt-8 border-t pt-6">
+                        <div className="space-y-3">
+                            <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Subtotal</span>
+                            </div>
+                            
                             <span>${total.toFixed(2)}</span>
                         </div>
-                        <div>
-                            <div className="flex justify-between">
-                                <span className="text-gray-600">Delivery</span>
-                                <span>${deliveryFee.toFixed(2)}</span>
-                            </div>
+                        <div className="flex justify-between text-sm">
+                            <span className="text-gray-600">Delivery</span>
+                            <span>{deliveryFee === 0 ? "Free": `$${deliveryFee.toFixed(2)}`}</span>
                         </div>
-                        <div className="flex justify-between border-t pt-3 text-xl font-bold">
+                        <div className="flex justify-between border-t pt-3 text-lg font-bold">
                             <span>Total</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
