@@ -129,6 +129,13 @@ function App() {
     setCart([])
   }
 
+  // clicking on "Cart" in Header
+  const handleCartClick = () => {
+    document.getElementById('cart')?.scrollIntoView({
+      behavior: "smooth",
+    })
+  }
+
   return (
     <>
     <Header 
@@ -137,6 +144,7 @@ function App() {
       cartCount={cart.reduce(
         (total, item) => total + item.quantity, 0
       )}
+      onCartClick={handleCartClick}
     />
 
     <main className="p-8">

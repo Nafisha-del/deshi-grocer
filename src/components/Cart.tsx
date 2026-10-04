@@ -17,7 +17,7 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
     const total = subtotal + deliveryFee
 
     return (
-        <section className="mt-12 rounded-lg border bg-white p-6 shadow-sm">
+        <section id="cart" className="mt-12 rounded-lg border bg-white p-6 shadow-sm">
             <h2 className="mb-5 text-2xl font-bold">Your Cart</h2>
 
             {items.length === 0 ? (

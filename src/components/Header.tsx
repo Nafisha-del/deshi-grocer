@@ -2,9 +2,10 @@ type HeaderProps = {
     storeName: string
     tagline: string
     cartCount: number
+    onCartClick: () => void
 }
 
-function Header({ storeName, tagline, cartCount }: HeaderProps){
+function Header({ storeName, tagline, cartCount, onCartClick }: HeaderProps){
     return (
     <header className="border-b bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
@@ -15,7 +16,10 @@ function Header({ storeName, tagline, cartCount }: HeaderProps){
             </div>
             
             <div className="font-semibold">
-                🛒 Cart ({cartCount})
+                <button onClick={onCartClick}
+                    className="font-semibold transition hover:opacity-70">
+                    🛒 Cart ({cartCount})
+                </button>
             </div>
         </div>
     </header>
