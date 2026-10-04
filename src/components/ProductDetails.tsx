@@ -23,6 +23,7 @@ function ProductDetails({ product, onAddToCart, onClose }: ProductDetailsProps) 
                         <p className="text-sm font-medium uppercase text-gray-500">{product.category}</p>
                         <h2 className="mt-2 text-3xl font-bold">{product.name}</h2>
                         <p className="mt-4 text-2xl font-bold">${product.price.toFixed(2)}</p>
+                        <p className="mt-4 leading-7 text-gray-600">{product.description}</p>
                         <p className="mt-4 text-gray-600">{product.stock > 0 ? 
                             `${product.stock} available` : "Currently out of stock"}
                         </p>
