@@ -5,9 +5,10 @@ type ProductListProps = {
     // selectedCategory: string
     products: Product[]
     onAddToCart: (product: Product) => void
+    onProductClick: (product: Product) => void
 }
 
-function ProductList({ products, onAddToCart, }: ProductListProps) {
+function ProductList({ products, onAddToCart, onProductClick }: ProductListProps) {
     // const filteredProducts =
     // selectedCategory === "All"
     //   ? products
@@ -39,10 +40,14 @@ function ProductList({ products, onAddToCart, }: ProductListProps) {
                 <div
                 key={product.id}
                 className="overflow-hidden rounded-lg border bg-white shadow-sm transition hover:shadow-md">
-                    <img src={product.image} alt={product.name} className="h-48 w-full object-cover"/>
+                    <button type="button" onClick={() => onProductClick(product)} className="block w-full">
+                        <img src={product.image} alt={product.name} className="h-48 w-full object-cover"/>
+                    </button>
                     
                     <div className="p-4">
-                        <h3 className="text-lg font-semibold">{product.name}</h3>
+                        <button type="button" onClick={() => onProductClick(product)} className="text-left text-lg font-semibold hover:underline">
+                            <h3 className="text-lg font-semibold">{product.name}</h3>
+                        </button>
                         <p className="mt-1 text-sm text-gray-500">{product.category}</p>
 
                         <p className="mt-2 text-sm text-gray-500">

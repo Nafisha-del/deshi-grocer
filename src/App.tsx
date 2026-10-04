@@ -8,10 +8,12 @@ import ProductList from "./components/ProductList"
 import Cart from "./components/Cart"
 import CheckoutForm from "./components/CheckoutForm"
 import OrderConfirmation from "./components/OrderConfirmation"
+import ProductDetails from "./components/ProductDetails"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [cart, setCart] = useState<CartItem[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
@@ -137,6 +139,14 @@ function App() {
     })
   }
 
+  // Check product
+  const handleProductClick = (product: Product) => {
+    setSelectedProduct(product)
+  }
+  const handleCloseProductDetails = () => {
+    setSelectedProduct(null)
+  }
+
   return (
     <>
     <Header 
@@ -192,6 +202,7 @@ function App() {
       <ProductList 
         products={sortedProducts} 
         onAddToCart={handleAddToCart}
+        onProductClick={handleProductClick}
       />
       <Cart 
         items={cart} 
@@ -204,6 +215,13 @@ function App() {
       {isCheckoutOpen && (
         <CheckoutForm
           onSubmit={handleOrderSubmit}
+        />
+      )}
+      {selectedProduct && (
+        <ProductDetails
+          product={selectedProduct}
+          onAddToCart={handleAddToCart}
+          onClose={handleCloseProductDetails}
         />
       )}
       {isOrderConfirmed && (
