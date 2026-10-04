@@ -100,7 +100,7 @@ function Cart({ items, onRemoveFromCart, onIncreaseQuantity, onDecreaseQuantity,
                                 className="flex-1 rounded-lg border px-4 py-3 font-semibold transition hover:bg-gray-100">
                                 Clear Cart
                             </button>
-                            <button  onClick={onCheckout}
+                            <button  onClick={onCheckout} disabled={items.length === 0}
                                 className="flex-1 rounded-lg bg-black px-4 py-3 font-semibold text-white transition hover:bg-gray-800">
                                 Proceed to Checkout
                             </button>

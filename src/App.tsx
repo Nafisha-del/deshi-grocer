@@ -89,6 +89,7 @@ function App() {
 
   // Check out logic
   const handleCheckout = () => {
+    if (cart.length === 0) { return }
     setIsCheckoutOpen(true)
   }
 
@@ -212,7 +213,7 @@ function App() {
             setCart([])
           }}
         />
-)}
+      )}
     </main>
     </>
   )
