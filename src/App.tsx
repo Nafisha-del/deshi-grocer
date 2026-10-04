@@ -9,6 +9,7 @@ import Cart from "./components/Cart"
 import CheckoutForm from "./components/CheckoutForm"
 import OrderConfirmation from "./components/OrderConfirmation"
 import ProductDetails from "./components/ProductDetails"
+import FeaturedProducts from "./components/FeaturedProducts"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -18,6 +19,9 @@ function App() {
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [sortOption, setSortOption] = useState("featured")
+
+  // Featured products
+  const featuredProducts = products.filter((product) => product.stock > 0).slice(0, 4)
 
   // Add to products to cart state
   const handleAddToCart = (product: Product) => {
@@ -198,6 +202,11 @@ function App() {
       <CategoryList
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
+      />
+      <FeaturedProducts 
+        products={featuredProducts}
+        onAddToCart={handleAddToCart}
+        onProductClick={handleProductClick}
       />
       <ProductList 
         products={sortedProducts} 
