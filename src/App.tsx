@@ -1,8 +1,8 @@
 import { use, useState, useEffect } from "react"
 // import { products } from "./data/products"
-import { products as initialProducts, type Product } from "./data/products"
+// import { products as initialProducts, type Product } from "./data/products"
 import type { CartItem } from "./data/products"
-// import type { Product } from "./data/products"
+import type { Product } from "./data/products"
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
@@ -11,6 +11,7 @@ import CheckoutForm from "./components/CheckoutForm"
 import OrderConfirmation from "./components/OrderConfirmation"
 import ProductDetails from "./components/ProductDetails"
 import FeaturedProducts from "./components/FeaturedProducts"
+import { getProducts } from "./services/productService"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -22,18 +23,28 @@ function App() {
   const [sortOption, setSortOption] = useState("featured")
   const [isLoading, setIsLoading] = useState(false)
   const [productError, setProductError] = useState<string | null>(null)
-  const [productList, setProductList] = useState<Product[]>(initialProducts)
+  const [productList, setProductList] = useState<Product[]>([])
 
   // Featured products
   const featuredProducts = productList.filter((product) => product.stock > 0).slice(0, 4)
 
   // Loading State
   useEffect(() => {
-    setIsLoading(true)
-    const timer = setTimeout(() => {
-      setIsLoading(false)}, 800)
-      return () => clearTimeout(timer)
-    }, [])
+    const loadProducts = async () => {
+      setIsLoading(true)
+      setProductError(null)
+      
+      try {
+        const data = await getProducts()
+        setProductList(data)
+      } catch (error) {
+        setProductError("Unable to load products.")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    loadProducts()
+  }, [])
 
   // Add to products to cart state
   const handleAddToCart = (product: Product) => {
