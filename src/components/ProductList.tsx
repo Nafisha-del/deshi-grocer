@@ -7,9 +7,10 @@ type ProductListProps = {
     onAddToCart: (product: Product) => void
     onProductClick: (product: Product) => void
     isLoading: boolean
+    productError: string | null
 }
 
-function ProductList({ products, onAddToCart, onProductClick, isLoading }: ProductListProps) {
+function ProductList({ products, onAddToCart, onProductClick, isLoading, productError }: ProductListProps) {
     if (isLoading) {
         return (
         <section className="mt-8">
@@ -18,6 +19,20 @@ function ProductList({ products, onAddToCart, onProductClick, isLoading }: Produ
                 <p className="text-gray-500">Loading products...</p>
             </div>
         </section>
+        )
+    }
+
+    if (productError) {
+        return (
+            <section className="mt-8">
+                <h2 className="mb-6 text-2xl font-bold">Products</h2>
+                <div className="rounded-lg border border-red-200 bg-red-50 p-6 text-center">
+                    <p className="font-semibold text-red-700">
+                        Unable to load Products
+                    </p>
+                    <p className="mt-2 text-sm text-red-600">{productError}</p>
+                </div>
+            </section>
         )
     }
     

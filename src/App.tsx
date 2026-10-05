@@ -20,6 +20,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [sortOption, setSortOption] = useState("featured")
   const [isLoading, setIsLoading] = useState(false)
+  const [productError, setProductError] = useState<string | null>(null)
 
   // Featured products
   const featuredProducts = products.filter((product) => product.stock > 0).slice(0, 4)
@@ -222,6 +223,7 @@ function App() {
         onAddToCart={handleAddToCart}
         onProductClick={handleProductClick}
         isLoading={isLoading}
+        productError={productError}
       />
       <Cart 
         items={cart} 
