@@ -1,7 +1,8 @@
 import { use, useState, useEffect } from "react"
-import { products } from "./data/products"
+// import { products } from "./data/products"
+import { products as initialProducts, type Product } from "./data/products"
 import type { CartItem } from "./data/products"
-import type { Product } from "./data/products"
+// import type { Product } from "./data/products"
 import Header from './components/Header'
 import CategoryList from './components/CategoryList'
 import ProductList from "./components/ProductList"
@@ -21,9 +22,10 @@ function App() {
   const [sortOption, setSortOption] = useState("featured")
   const [isLoading, setIsLoading] = useState(false)
   const [productError, setProductError] = useState<string | null>(null)
+  const [productList, setProductList] = useState<Product[]>(initialProducts)
 
   // Featured products
-  const featuredProducts = products.filter((product) => product.stock > 0).slice(0, 4)
+  const featuredProducts = productList.filter((product) => product.stock > 0).slice(0, 4)
 
   // Loading State
   useEffect(() => {
@@ -116,7 +118,7 @@ function App() {
   }
 
   // Items search 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = productList.filter((product) => {
     const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch
