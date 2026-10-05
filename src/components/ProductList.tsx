@@ -6,29 +6,24 @@ type ProductListProps = {
     products: Product[]
     onAddToCart: (product: Product) => void
     onProductClick: (product: Product) => void
+    isLoading: boolean
 }
 
-function ProductList({ products, onAddToCart, onProductClick }: ProductListProps) {
-    // const filteredProducts =
-    // selectedCategory === "All"
-    //   ? products
-    //   : products.filter(
-    //       (product) => product.category === selectedCategory
-    //     )
-
+function ProductList({ products, onAddToCart, onProductClick, isLoading }: ProductListProps) {
+    if (isLoading) {
+        return (
+        <section className="mt-8">
+            <h2 className="mb-6 text-2xl font-bold">Products</h2>
+            <div className="flex justify-center py-12">
+                <p className="text-gray-500">Loading products...</p>
+            </div>
+        </section>
+        )
+    }
+    
     return (
         <section className="mt-8">
         <h2 className="mb-6 text-2xl font-bold">Products</h2>
-
-        {/* <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {filteredProducts.map((product) => (
-            <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={() => onAddToCart(product.id)}
-            />
-            ))}
-        </div> */}
 
         {products.length === 0 ? (
             <p className="py-8 text-center text-gray-500">

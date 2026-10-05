@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { use, useState, useEffect } from "react"
 import { products } from "./data/products"
 import type { CartItem } from "./data/products"
 import type { Product } from "./data/products"
@@ -19,9 +19,18 @@ function App() {
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [sortOption, setSortOption] = useState("featured")
+  const [isLoading, setIsLoading] = useState(false)
 
   // Featured products
   const featuredProducts = products.filter((product) => product.stock > 0).slice(0, 4)
+
+  // Loading State
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = setTimeout(() => {
+      setIsLoading(false)}, 800)
+      return () => clearTimeout(timer)
+    }, [])
 
   // Add to products to cart state
   const handleAddToCart = (product: Product) => {
@@ -212,6 +221,7 @@ function App() {
         products={sortedProducts} 
         onAddToCart={handleAddToCart}
         onProductClick={handleProductClick}
+        isLoading={isLoading}
       />
       <Cart 
         items={cart} 
