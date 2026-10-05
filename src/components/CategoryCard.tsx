@@ -2,10 +2,9 @@ type CategoryCardProps = {
   name: string
   image: string
   onClick: () => void
-  isSelected: boolean
 }
 
-function CategoryCard({ name, image, onClick, isSelected, }: CategoryCardProps) {
+function CategoryCard({ name, image, onClick, }: CategoryCardProps) {
   return (
     <button
       onClick={onClick}
@@ -19,7 +18,6 @@ function CategoryCard({ name, image, onClick, isSelected, }: CategoryCardProps) 
         transition
         hover:-translate-y-1
         hover:shadow-md
-        ${isSelected ? "ring-2 ring-black" : ""}
       `}
     >
       <img

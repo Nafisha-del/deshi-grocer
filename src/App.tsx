@@ -217,8 +217,8 @@ function App() {
             <option value="featured">Featured</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
-            <option value="name-az">Name: A → Z</option>
-            <option value="name-za">Name: Z → A</option>
+            <option value="return-az">Name: A → Z</option>
+            <option value="return-za">Name: Z → A</option>
         </select>
       </div>
 

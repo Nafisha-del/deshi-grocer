@@ -5,10 +5,7 @@ type CategoryListProps = {
   onCategorySelect: (category: string) => void
 }
 
-function CategoryList({
-  selectedCategory,
-  onCategorySelect,
-}: CategoryListProps) {
+function CategoryList({ selectedCategory, onCategorySelect, }: CategoryListProps) {
   const categories = [
     {
       name: "Fruits",
@@ -73,7 +70,6 @@ function CategoryList({
             name={category.name}
             image={category.image}
             onClick={() => onCategorySelect(category.name)}
-            isSelected={selectedCategory === category.name}
           />
         ))}
       </div>
