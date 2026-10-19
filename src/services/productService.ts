@@ -7,12 +7,12 @@ const API_URL = "http://localhost:5000/api";
 //   return products
 // }
 
-export async function getProducts(): Promise<Product[]> {
-  const response = await fetch(`${API_URL}/products`);
+export const getProducts = async (): Promise<Product[]> => {
+  const response = await fetch(`${API_URL}/products`)
 
   if (!response.ok) {
-    throw new Error("Failed to fetch products");
+    throw new Error("Failed to fetch products")
   }
 
-  return response.json();
+  return response.json() as Promise<Product[]>
 }
