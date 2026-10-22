@@ -12,6 +12,7 @@ import OrderConfirmation from "./components/OrderConfirmation"
 import ProductDetails from "./components/ProductDetails"
 import FeaturedProducts from "./components/FeaturedProducts"
 import { getProducts } from "./services/productService"
+import AdminProductForm from "./components/AdminProductForm"
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -266,6 +267,10 @@ function App() {
           }}
         />
       )}
+
+      <section id="admin-products" className="px-4 py-10">
+        <AdminProductForm />
+      </section>
     </main>
     </>
   )
